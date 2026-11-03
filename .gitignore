@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.env
+.env.local
+web/public/uploads/*
+!web/public/uploads/.gitkeep
+.hf-cache/
+*.log
+.DS_Store

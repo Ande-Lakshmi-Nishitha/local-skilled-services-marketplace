@@ -1,0 +1,36 @@
+# Local dev infrastructure: PostgreSQL (+pgvector) and MongoDB.
+# Usage:  cp .env.example .env && docker compose up -d --wait && ./scripts/db-reset.sh
+services:
+  postgres:
+    image: pgvector/pgvector:pg16          # PostgreSQL 16 with the pgvector extension preinstalled
+    container_name: skillmarket-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-skillmarket}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-skillmarket}
+      POSTGRES_DB: ${POSTGRES_DB:-skillmarket}
+    ports:
+      - "${PG_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-skillmarket} -d ${POSTGRES_DB:-skillmarket}"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  mongo:
+    image: mongo:7
+    container_name: skillmarket-mongo
+    ports:
+      - "${MONGO_PORT:-27017}:27017"
+    volumes:
+      - mongodata:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  pgdata:
+  mongodata:
