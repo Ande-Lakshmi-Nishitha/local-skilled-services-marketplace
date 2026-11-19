@@ -1,0 +1,44 @@
+{
+  "name": "skillmarket",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local Skilled-Services Marketplace: semantic request-to-worker matching (PostgreSQL + pgvector + MongoDB)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down",
+    "db:reset": "tsx scripts/db-reset.ts",
+    "db:embed": "tsx scripts/embed-all.ts",
+    "db:reconcile": "tsx scripts/reconcile.ts",
+    "test:db": "tsx scripts/run-sql-tests.ts",
+    "test:concurrency": "tsx scripts/test-concurrency.ts",
+    "eval": "tsx scripts/eval-matching.ts",
+    "bench": "tsx scripts/bench.ts",
+    "try": "tsx scripts/try-match.ts",
+    "check:model": "tsx scripts/check-model.ts"
+  },
+  "engines": {
+    "node": ">=20.9"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.2",
+    "mongodb": "7.8.0",
+    "next": "16.4.6",
+    "pg": "8.23.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.5",
+    "@types/node": "26.6.6",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "tailwindcss": "4.3.5",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3"
+  }
+}
